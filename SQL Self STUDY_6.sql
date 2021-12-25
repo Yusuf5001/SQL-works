@@ -119,3 +119,56 @@ CREATE TABLE workers (
 
 
 
+INSERT INTO workers VALUES(1, '12345678910','AHMET CAN', 7000 );
+INSERT INTO workers VALUES( 2, '12345678910', 'MUSTAFA ALİ', 12000);  -- HATA (UNIQUE)
+INSERT INTO workers  (id,id_number, salary) VALUES(3, '12345223465', 5000);
+INSERT INTO workers VALUES(4, '44343323465' , 'AYHAN BAK',NULL) -- HATA (NOT NULL)
+
+
+CREATE TABLE vacation_plan2 (
+	id INT,
+	place_id INT,
+	country TEXT,
+	hotel_name TEXT,
+	employee_id,
+	vacation_length INT,
+	budget REAL,
+	FOREIGN KEY(employee_id) REFERENCES employees(EmployeeId),
+	PRIMARY KEY(id)
+)
+
+INSERT INTO vacation_plan2 VALUES (1,34,"TR", "Happy", 1,5, 4500)
+
+INSERT INTO vacation_plan2 VALUES (2,2,"US", "Hape", 11,5, 4500)
+
+
+
+SELECT employees.FirstName, employees.LastName, vacation_plan2.hotel_name, vacation_plan2.vacation_length
+FROM employees
+JOIN vacation_plan2
+on employees.EmployeeId=vacation_plan2.employee_id
+
+
+ALTER TABLE vacation_plan2 
+ADD name TEXT DEFAULT "NoName";
+
+ALTER TABLE vacation_plan2 
+DROP COLUMN name;
+
+ALTER TABLE workers RENAME to people;
+
+
+UPDATE vacation_plan2
+SET hotel_name="Komagene"
+WHERE employee_id=1
+
+
+UPDATE people 
+SET salary = salary*1.1
+WHERE salary >5000
+
+
+
+
+
+

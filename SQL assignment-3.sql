@@ -7,10 +7,10 @@ SELECT TrackId, name, Milliseconds FROM tracks ORDER by Milliseconds LIMIT 1
 /*Write a query to find the tracks whose bytes are higher than the average of the bytes of all tracks. 
 Your query should include TrackId, Name, Bytes, general average and should be ordered by Bytes from highest to 
 lowest. General average is the average of all tracks. General average should repeat in every row. 
-(Hint: You need to use two subqueries)
+(Hint: You need to use two subqueries)*/
 
-SELECT TrackId, name, Bytes from tracks 
-WHERE Bytes >(SELECT * FROM tracks where )
+/*SELECT TrackId, name, Bytes from tracks 
+WHERE Bytes > (SELECT avg(Bytes) FROM tracks)
 
 SELECT avg(Bytes) FROM tracks*/
 
@@ -30,3 +30,23 @@ CoursePrice INT
 
 
 ("SupportRepId") REFERENCES "employees"("EmployeeId") 
+
+
+/*Find the total duration of each album. Your solution should include 
+album id, album title and its total duration sorted from highest to lowest.*/
+
+SELECT al.AlbumId, al.Title, tr.Milliseconds 
+FROM albums al
+LEFT JOIN tracks tr
+on al.AlbumId=tr.AlbumId
+WHERE Milliseconds <(SELECT sum(Milliseconds) FROM tracks)
+
+
+SELECT AlbumId,Name, sum(Milliseconds)
+FROM tracks
+WHERE AlbumId=(SELECT al.AlbumId, al.Title, tr.Milliseconds 
+FROM albums al
+LEFT JOIN tracks tr
+on al.AlbumId=tr.AlbumId);
+
+
